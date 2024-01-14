@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enchanté Perfumery</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        #products-display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .product-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .item-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-name {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        .product-description {
+            margin: 5px 0;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: #007bff;
+            margin: 5px 0;
+        }
+
+        .add-to-cart-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Enchanté Perfumery</h1>
+    <div id="products-display"></div>
+
+    <script>
+        fetch('perfume.json') 
+            .then(response => response.json())
+            .then(perfumeInventory => {
+                let productsDisplay = "";
+                for (const perfume of perfumeInventory) {
+                    productsDisplay += `
+                        <div class="product-item">
+                            <img src="${perfume.image}" alt="${perfume.name}" class="item-image">
+                            <h3 class="product-name">${perfume.name}</h3>
+                            <p class="product-price">$${perfume.price}</p>
+                            <button class="add-to-cart-button">Add to Cart</button>
+                        </div>
+                    `;
+                }
+                document.querySelector("#products-display").innerHTML = productsDisplay;
+            })
+    </script>
+</body>
+</html>
